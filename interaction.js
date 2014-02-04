@@ -57,52 +57,52 @@ $(document).ready(function() {
 	// event handlers for inter-page travel
 	$('#secondary_keys').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#home_details').offset().top - 45)
+	    scrollTop: ($('#home_details').offset().top)
 		},300);
 	});
 
 	$('#main_images').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#tour').offset().top - 45)
+	    scrollTop: ($('#tour').offset().top)
 		},300);
 	});
 
 	$('#morepics').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#tour').offset().top - 45)
+	    scrollTop: ($('#tour').offset().top)
 		},300);
 	});
 
 	$('#contact_button').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#contact').offset().top - 45)
+	    scrollTop: ($('#contact').offset().top)
 		},300);
 	});
 
 	$('#school_link').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#schools').offset().top - 45)
+	    scrollTop: ($('#schools').offset().top)
 		},500);
 		event.preventDefault();
 	});
 
 	$('#walkscore_link').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#neighborhood').offset().top - 45)
+	    scrollTop: ($('#neighborhood').offset().top)
 		},500);
 		event.preventDefault();
 	});
 
-	$('.glyphicon-arrow-up').click(function (event) {
+	$('.backtop').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#tour').offset().top - 45)
+	    scrollTop: ($('#tour').offset().top)
 		},500);
 		event.preventDefault();
 	});
 
 	$('.floor_label').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#tour').offset().top - 45)
+	    scrollTop: ($('#tour').offset().top)
 		},500);
 		event.preventDefault();
 	});
@@ -115,25 +115,25 @@ $(document).ready(function() {
 	});
 	$('#footer_details_link').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#home_details').offset().top - 45)
+	    scrollTop: ($('#home_details').offset().top)
 		},700);
 		event.preventDefault();
 	});
 	$('#footer_tour_link').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#tour').offset().top - 45)
+	    scrollTop: ($('#tour').offset().top)
 		},700);
 		event.preventDefault();
 	});
 	$('#footer_neighborhood_link').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#neighborhood').offset().top - 45)
+	    scrollTop: ($('#neighborhood').offset().top)
 		},500);
 		event.preventDefault();
 	});
 	$('#footer_schools_link').click(function (event) {
 		$('html, body').animate({
-	    scrollTop: ($('#schools').offset().top - 45)
+	    scrollTop: ($('#schools').offset().top)
 		},300);
 		event.preventDefault();
 	});
@@ -157,7 +157,7 @@ $(document).ready(function() {
 		var id = $(this).attr('class');
 		id = id.substring(0,5);
 		$('html, body').animate({
-	    scrollTop: ($('#' + id).offset().top - 45)
+	    scrollTop: ($('#' + id).offset().top)
 		},300);
 		event.preventDefault();
 	}

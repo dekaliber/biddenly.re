@@ -91,7 +91,7 @@ html {
 
 body {
   font-family: "Open Sans", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   color: #333333; }
 
@@ -102,7 +102,7 @@ header {
   border-bottom: 1px solid #e6e6e6;
   padding: 0px 10px 0px 10px;
   color: #ccc;
-  height: 40px;
+  height: 44px;
   position: fixed;
   top: 0;
   z-index: 100;
@@ -129,6 +129,17 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); }
   header img {
     vertical-align: middle; }
+
+div#header_menu {
+  float: left;
+  height: 44px;
+  padding-top: 6px;
+  padding-right: 10px;
+  border-right: 1px solid #ddd; }
+
+div#header_logo {
+  text-align: right;
+  line-height: 44px; }
 
 img#logo {
   position: relative;
@@ -176,7 +187,8 @@ p {
 p.more_link {
   text-align: center;
   font-weight: bold;
-  margin-top: 5px; }
+  margin-top: 5px;
+  font-size: 120%; }
 
 footer {
   width: 100%;
@@ -224,15 +236,11 @@ section#primary_keys {
 #bedbath img {
   vertical-align: top;
   margin-right: 5px;
-  margin-top: -5px;
-  display: none; }
+  margin-top: -5px; }
 
 @media screen and (max-width: 640px) {
   #bedbath img {
-    display: inline; }
-
-  #bedrooms {
-    display: none; } }
+    display: inline; } }
 section#secondary_keys {
   font-weight: 300;
   height: 35px;
@@ -300,6 +308,10 @@ ul.footer {
 .right {
   text-align: right; }
 
+.center {
+  width: 100%;
+  text-align: center; }
+
 .large {
   font-size: 20px;
   margin-bottom: 5px; }
@@ -344,7 +356,8 @@ button#morepics {
   float: right; }
 
 .contact_info {
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  margin-top: 10px; }
 
 #tooltip {
   padding: 5px;
@@ -493,7 +506,7 @@ div#monthly_calc {
 /* Home Details table */
 td.attr {
   color: #999999;
-  width: 100px; }
+  width: 105px; }
 
 /* Tour table style */
 .floor_dims {
@@ -802,6 +815,11 @@ img.tour_photo {
       font-size: 85%; } }
 
 /* Neighborhood table style */
+#yelp_nearby table tr {
+  border-top: 1px dotted #eee; }
+  #yelp_nearby table tr td {
+    padding-top: 4px; }
+
 #transit_walk_score {
   padding-left: 10px;
   padding-right: 10px;
@@ -810,8 +828,6 @@ img.tour_photo {
 
 td.venue {
   padding-right: 10px;
-  padding-top: 0px;
-  padding-bottom: 5px;
   line-height: 140%;
   width: 60%; }
   td.venue span {
@@ -821,57 +837,52 @@ td.rating {
   vertical-align: middle;
   width: 28%;
   text-align: left;
-  padding-top: 0px;
-  padding-bottom: 5px;
-  min-width: 84px; }
+  min-width: 84px;
+  font-size: 80%; }
 
 td.distance {
-  padding-top: 0px;
-  padding-bottom: 5px;
   line-height: 140%;
   width: 12%;
   color: #999;
   font-size: 90%;
   text-align: right;
-  vertical-align: middle;
-  min-width: 40px; }
+  min-width: 45px; }
 
 div.rating {
-  float: right;
   width: 84px;
-  height: 18px;
+  height: 14px;
   background: url(yelp_icons.png) no-repeat;
   background-position: -3px 18px; }
 
 div.stars0 {
-  background-position: -3px -1px; }
+  background-position: -3px -3px; }
 
 div.stars1 {
-  background-position: -3px -19px; }
+  background-position: -3px -21px; }
 
 div.stars15 {
-  background-position: -3px -37px; }
+  background-position: -3px -39px; }
 
 div.stars2 {
-  background-position: -3px -55px; }
+  background-position: -3px -57px; }
 
 div.stars25 {
-  background-position: -3px -73px; }
+  background-position: -3px -75px; }
 
 div.stars3 {
-  background-position: -3px -91px; }
+  background-position: -3px -93px; }
 
 div.stars35 {
-  background-position: -3px -109px; }
+  background-position: -3px -111px; }
 
 div.stars4 {
-  background-position: -3px -127px; }
+  background-position: -3px -129px; }
 
 div.stars45 {
-  background-position: -3px -145px; }
+  background-position: -3px -147px; }
 
 div.stars5 {
-  background-position: -3px -163px; }
+  background-position: -3px -165px; }
 
 /* School table style */
 td.school {
@@ -901,6 +912,13 @@ div#map {
   clear: both;
   position: relative;
   z-index: 5; }
+
+div#map_container {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto 200px;
+  height: 200px;
+  width: 100%; }
 
 div#directions_bar {
   width: 100%;
@@ -1018,7 +1036,7 @@ ul#dots {
     height: 8px;
     border-radius: 8px;
     background: #fff;
-    margin: 0 2px;
+    margin: 0 4px;
     cursor: pointer;
     border: 1px solid #ccc; }
   ul#dots li.selected {
@@ -1055,23 +1073,13 @@ div#mobilemenu {
     color: #666; }
   div#mobilemenu ul li {
     line-height: 30px;
-    background: #eeeeee;
-    /* Old browsers */
-    background: -moz-linear-gradient(top, white 0%, #eeeeee 100%);
-    /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #eeeeee));
-    /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, white 0%, #eeeeee 100%);
-    /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, white 0%, #eeeeee 100%);
-    /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, white 0%, #eeeeee 100%);
-    /* IE10+ */
-    background: linear-gradient(to bottom, white 0%, #eeeeee 100%);
-    /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to',GradientType=0 );
-    /* IE6-9 */
+    background: #fff;
     font-size: 115%;
     font-weight: bold;
     padding: 5px 5px 5px 10px;
     border-bottom: 1px solid #e6e6e6; }
+  div#mobilemenu a {
+    color: #666; }
+    div#mobilemenu a:visited, div#mobilemenu a:hover, div#mobilemenu a:active {
+      color: #666;
+      text-decoration: none; }

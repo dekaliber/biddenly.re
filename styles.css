@@ -107,14 +107,14 @@ header {
   	@include shadow(0, 2px, 4px, rgba(0,0,0,0.25));
   	@include linear-gradient(#68b6ea, 27%, #56ade7);
   */ }
-  @media screen and (min-width: 1600px) {
+  @media screen and (min-width: 1421px) {
     header {
       width: 100%;
       margin: 0 auto;
       text-align: center;
       z-index: 100; }
       header img {
-        left: -695px; } }
+        left: -617px; } }
   @media screen and (max-width: 1100px) {
     header {
       position: relative;
@@ -136,7 +136,7 @@ img#logo {
 
 div#content_container {
   width: 75%;
-  max-width: 1200px;
+  max-width: 1066px;
   min-width: 600px;
   height: auto;
   margin: 0 auto;
@@ -292,14 +292,21 @@ ul.footer {
   ul.footer li:first-child {
     border: 0; }
 
-div#address, div#bedbath {
+.left {
   float: left; }
-
-div#price, div#sizetype {
-  float: right; }
 
 .right {
   text-align: right; }
+
+.center {
+  width: 100%;
+  text-align: center; }
+
+div#address {
+  float: left; }
+
+div#price {
+  float: right; }
 
 .large {
   font-size: 30px;
@@ -377,7 +384,7 @@ button#morepics {
 .heading {
   width: 100%;
   height: auto;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   padding-left: 15px;
   padding-right: 15px; }
 
@@ -430,15 +437,26 @@ div.col_container:after {
   clear: both;
   visibility: hidden; }
 
-div.col {
+div.col2 {
+  display: inline-block;
+  width: 50%;
+  padding-left: 15px;
+  transition: width 0.5s; }
+  div.col2 table {
+    width: 100%; }
+  @media screen and (max-width: 800px) {
+    div.col2 {
+      width: 50%; } }
+
+div.col3 {
   display: inline-block;
   width: 33.3333333%;
   padding-left: 15px;
   transition: width 0.5s; }
-  div.col table {
+  div.col3 table {
     width: 100%; }
   @media screen and (max-width: 800px) {
-    div.col {
+    div.col3 {
       width: 50%; } }
 
 div.contact_left {
@@ -463,6 +481,9 @@ div.contact_right {
   @media screen and (max-width: 800px) {
     div.contact_right {
       width: 50%; } }
+
+div.contact_info p {
+  margin-top: 10px; }
 
 /* Monthly calculator */
 div#monthly_calc {
@@ -493,6 +514,12 @@ div#monthly_calc {
     line-height: 30px; }
 
 /* Home Details table */
+#building_info tr:nth-child(5) td {
+  padding-top: 5px; }
+
+#building_info tr:nth-child(9) td {
+  padding-top: 5px; }
+
 td.attr {
   color: #999999;
   width: 120px; }
@@ -647,7 +674,7 @@ div.tour_photo_container {
   float: right;
   width: 66.6666666%;
   margin-top: -40px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   padding-left: 15px;
   position: relative;
   transition: width 0.5s; }
@@ -671,6 +698,7 @@ img.tour_photo {
   vertical-align: top;
   position: relative;
   z-index: 3;
+  margin-bottom: 5px;
   -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
   /* Safari v3.0+ and by Chrome v0.2+ */
   -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
@@ -691,6 +719,10 @@ img.tour_photo {
 
 .backtop {
   margin: 3px auto; }
+
+.other_photos_backtop {
+  display: block;
+  margin: 0 auto 35px auto; }
 
 .room1_cell {
   width: 80px;
@@ -765,10 +797,16 @@ img.tour_photo {
       font-size: 85%; } }
 
 /* Neighborhood table style */
+#transit_score {
+  margin-right: 5%; }
+
+#yelp_nearby table tr {
+  border-top: 1px dotted #eee; }
+  #yelp_nearby table tr td {
+    padding-top: 4px; }
+
 td.venue {
   padding-right: 10px;
-  padding-top: 0px;
-  padding-bottom: 5px;
   line-height: 140%;
   width: 60%; }
   td.venue span {
@@ -778,56 +816,52 @@ td.rating {
   vertical-align: middle;
   width: 28%;
   text-align: left;
-  padding-top: 0px;
-  padding-bottom: 5px;
-  min-width: 84px; }
+  min-width: 84px;
+  font-size: 80%; }
 
 td.distance {
-  padding-top: 0px;
-  padding-bottom: 5px;
   line-height: 140%;
   width: 12%;
   color: #999;
   font-size: 90%;
   text-align: right;
-  vertical-align: middle;
-  min-width: 40px; }
+  min-width: 45px; }
 
 div.rating {
   width: 84px;
-  height: 18px;
+  height: 14px;
   background: url(yelp_icons.png) no-repeat;
   background-position: -3px 18px; }
 
 div.stars0 {
-  background-position: -3px -1px; }
+  background-position: -3px -3px; }
 
 div.stars1 {
-  background-position: -3px -19px; }
+  background-position: -3px -21px; }
 
 div.stars15 {
-  background-position: -3px -37px; }
+  background-position: -3px -39px; }
 
 div.stars2 {
-  background-position: -3px -55px; }
+  background-position: -3px -57px; }
 
 div.stars25 {
-  background-position: -3px -73px; }
+  background-position: -3px -75px; }
 
 div.stars3 {
-  background-position: -3px -91px; }
+  background-position: -3px -93px; }
 
 div.stars35 {
-  background-position: -3px -109px; }
+  background-position: -3px -111px; }
 
 div.stars4 {
-  background-position: -3px -127px; }
+  background-position: -3px -129px; }
 
 div.stars45 {
-  background-position: -3px -145px; }
+  background-position: -3px -147px; }
 
 div.stars5 {
-  background-position: -3px -163px; }
+  background-position: -3px -165px; }
 
 /* School table style */
 td.school {
@@ -872,6 +906,7 @@ div#directions_bar {
   bottom: 30px;
   z-index: 5;
   display: none;
+  border-bottom: 1px solid #e6e6e6;
   padding-left: 15px;
   padding-right: 15px;
   opacity: 0.8;

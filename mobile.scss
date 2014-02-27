@@ -95,7 +95,7 @@ html {
 }
 body {
 	font-family: $body_font;
-	font-size: 13px;
+	font-size: 14px;
 	font-weight: 400;
 	color: $color_main;
 	
@@ -114,7 +114,7 @@ header {
 	border-bottom: 1px solid #e6e6e6; 
 	padding: 0px 10px 0px 10px;
 	color: #ccc; 
-	height: 40px;
+	height: 44px;
 	position: fixed;
 	top: 0;
 	z-index: 100;
@@ -136,6 +136,18 @@ header {
 	// @include linear-gradient(#68b6ea, 27%, #56ade7);
 
 }
+div#header_menu {
+	float: left; 
+	height: 44px; 
+	padding-top: 6px; 
+	padding-right: 10px; 
+	border-right: 1px solid #ddd;
+}
+div#header_logo {
+	text-align: right; 
+	line-height: 44px;
+}
+
 img#logo {
 	position: relative;
 	width: 60px;
@@ -178,6 +190,7 @@ p.more_link {
 	text-align: center; 
 	font-weight: bold;
 	margin-top: 5px;
+	font-size: 120%;
 }
 table {
 
@@ -235,15 +248,12 @@ section#primary_keys {
 	vertical-align: top;
 	margin-right: 5px;
 	margin-top: -5px;
-	display: none;
+	//display: none;
 }
 
 @media screen and (max-width: $low_res) {
 	#bedbath img {
 		display: inline;
-	}
-	#bedrooms {
-		display: none;
 	}
 	
 }
@@ -301,6 +311,10 @@ ul.footer {
 .right {
 	text-align: right;
 }
+.center {
+	width: 100%; 
+	text-align: center;
+}
 .large {
 	font-size: 20px;
 	margin-bottom: 5px;
@@ -351,6 +365,7 @@ button#morepics {
 }
 .contact_info {
 	margin-bottom: 10px;
+	margin-top: 10px;
 }
 #tooltip {
 	padding: 5px;
@@ -485,7 +500,7 @@ div#monthly_calc {
 /* Home Details table */
 td.attr {
 	color: #999999;
-	width: 100px;
+	width: 105px;
 }
 
 
@@ -859,6 +874,15 @@ img.tour_photo {
 
 
 /* Neighborhood table style */
+#yelp_nearby table tr {
+	border-top: 1px dotted #eee;
+
+	td {
+		padding-top: 4px;
+//		padding-bottom: 2px;
+	}
+}
+
 #transit_walk_score {
 	@include lr_padding;
 	padding-top: 10px;
@@ -867,11 +891,8 @@ img.tour_photo {
 
 td.venue {
 	padding-right: 10px;
-	padding-top: 0px;
-	padding-bottom: 5px;
 	line-height: $p_leading;
 	//background: url(dot.png);
-	//border: 1px solid red;
 	width: 60%;
 
 	span {
@@ -882,40 +903,33 @@ td.rating {
 	vertical-align: middle;
 	width: 28%;
 	text-align: left;
-	padding-top: 0px;
-	padding-bottom: 5px;
 	min-width: 84px;
-	//width: 90px;
-	//border: 1px solid blue;
+	font-size: 80%;
 }
 td.distance {
-	padding-top: 0px;
-	padding-bottom: 5px;
 	line-height: $p_leading;
 	width: 12%;
 	color: #999;
 	font-size: 90%;
 	text-align: right;
-	vertical-align: middle;
-	min-width: 40px;
+	min-width: 45px;
 }
 div.rating {
-	float: right;
 	width: 84px;
-	height: 18px;
+	height: 14px;
 	background: url(yelp_icons.png) no-repeat;
 	background-position: -3px 18px;
 }
-div.stars0 { background-position: -3px -1px; }
-div.stars1 { background-position: -3px -19px; }
-div.stars15 { background-position: -3px -37px; }
-div.stars2 { background-position: -3px -55px; }
-div.stars25 { background-position: -3px -73px; }
-div.stars3 { background-position: -3px -91px; }
-div.stars35 { background-position: -3px -109px; }
-div.stars4 { background-position: -3px -127px; }
-div.stars45 { background-position: -3px -145px; }
-div.stars5 { background-position: -3px -163px; }
+div.stars0 { background-position: -3px -3px; }
+div.stars1 { background-position: -3px -21px; }
+div.stars15 { background-position: -3px -39px; }
+div.stars2 { background-position: -3px -57px; }
+div.stars25 { background-position: -3px -75px; }
+div.stars3 { background-position: -3px -93px; }
+div.stars35 { background-position: -3px -111px; }
+div.stars4 { background-position: -3px -129px; }
+div.stars45 { background-position: -3px -147px; }
+div.stars5 { background-position: -3px -165px; }
 
 
 /* School table style */
@@ -950,6 +964,13 @@ div#map {
 	clear: both;
 	position: relative; 
 	z-index: 5;
+}
+div#map_container {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: auto 200px;
+	height: 200px;
+	width: 100%;
 }
 div#directions_bar {
 	width: 100%;
@@ -1054,13 +1075,12 @@ ul#dots {
 
 	li {
 		display:inline-block;
-		width:8px;
-		height:8px;
-		border-radius:8px;
-		background:#fff;
-		//box-shadow:inset 0 1px 3px black,0 0 1px 1px #202020;
-		margin:0 2px;
-		cursor:pointer;
+		width: 8px;
+		height: 8px;
+		border-radius: 8px;
+		background: #fff;
+		margin: 0 4px;
+		cursor: pointer;
 		border: 1px solid #ccc;
 	}
 
@@ -1085,10 +1105,20 @@ div#mobilemenu {
 
 	ul li {
 		line-height: 30px;
-		@include linear-gradient(#fff, 0%, #eee);
+		//@include linear-gradient(#fff, 0%, #eee);
+		background: #fff;
 		font-size: 115%;
 		font-weight: bold;
 		padding: 5px 5px 5px 10px;
 		border-bottom: 1px solid #e6e6e6;
+	}
+
+	a {
+		color: #666;
+
+		&:visited, &:hover, &:active {
+			color: #666;
+			text-decoration: none;
+		}
 	}
 }

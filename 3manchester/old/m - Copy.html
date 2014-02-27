@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="initial-scale=1">
+	<title>biddenly: 3 Manchester Lane, Elmhurst, IL</title>
+	<script src="../modernizr.js"></script>
+	<script src="../jquery-1.10.2.min.js"></script>
+	<script src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script>
+	<script src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
+	<script src='../swipe/swipe.js'></script>
+	<script src="mobile.js"></script>
+ 
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBie6WsV1VcCH8PmnDzC_2sGBX9w-NZ52s&sensor=false"></script>
+  
+    <script>
+    var map;
+	var schoolmap;
+	var panorama;
+
+	var directionsDisplay = new google.maps.DirectionsRenderer();
+	var directionsService = new google.maps.DirectionsService();
+
+	var address = "3 Manchester Lane, Elmhurst, IL 60126";
+	var town = "Elmhurst, IL 60126"
+
+	var latitude;
+	var longitude;
+	var schoolmapCenter;
+    
+
+	//google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+	<!--[if lt IE 9]>
+	<script>
+		var e = ("abbr,article,aside,audio,canvas,datalist,details," +
+	 		"figure,footer,header,hgroup,mark,menu,meter,nav,output," +
+	    	"progress,section,time,video").split(',');
+	  	for (var i = 0; i < e.length; i++) {
+	    	document.createElement(e[i]);
+		}
+	</script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="../bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="../mobile.css">
+</head>
+<body>
+
+	<header>
+		<div style="float: left; height: 40px; padding-top: 6px; padding-right: 10px; border-right: 1px solid #ddd;"><img src="../menu.svg" height="28" id="menu_button" class="interactive"> </div> 
+		<div style="text-align: right; line-height: 40px;">powered by <img id="logo" src="../biddenly_graylogo.png"></div>
+	</header>
+	<div id="mobilemenu">
+		<ul class="interactive">
+			<li id="menu-home_details"><a href="#home_details">Home Details</a></li>
+			<li id="menu-tour"><a href="#tour">Take a Tour</a></li>
+			<li id="menu-neighborhood"><a href="#neighborhood">What's Nearby</a></li>
+			<li id="menu-schools"><a href="#schools">Schools</a></li>
+			<li id="menu-contact"><a href="">Contact the Seller</a></li>
+		</ul>
+	</div>
+	<!-- 
+	<div class="swipebar">
+		<div class="swipe_prev_section">Contact</div>
+		<div class="swipe_next_section">Details</div>
+		<div class="swipe_arrows"><img src="left_arrow.png" />swipe<img src="right_arrow.png" /></div>
+	</div>
+	 -->
+	<section id="primary_keys">
+		<div id="address_line1">
+			<div class="large">3 Manchester Lane</div>
+		</div>
+		<div id="address_line2">
+			<div class="left small">Elmhurst, IL 60126</div>
+			<div class="right small">$385,000</div>
+		</div>
+	</section>
+	<!-- <div id="monthly_calc">
+		<table>
+			<tr><td class="attr">Price</td>
+				<td>
+					<div class="input-group input-group-sm">
+						<span class="input-group-addon">$</span>
+						<input type="text" class="form-control" value="385,000">
+					</div>
+				</td>
+			</tr>
+			<tr><td class="attr">Down Payment</td>
+				<td>
+					<div class="input-group input-group-sm">
+						<input type="text" class="form-control" value="20">
+						<span class="input-group-addon">%</span>
+					</div>
+				</td>
+			</tr>
+			<tr><td class="attr">Interest Rate</td>
+				<td>
+					<div class="input-group input-group-sm">
+						<input type="text" class="form-control" value="4.5">
+						<span class="input-group-addon">%</span>
+					</div>
+				</td>
+			</tr>
+			<tr><td class="attr">Mortgage</td>
+				<td>$1,560</td>
+			</tr>
+			<tr><td class="attr">Taxes</td>
+				<td>$581</td>
+			</tr>
+			<tr><td class="attr">Insurance</td>
+				<td>$80</td>
+			</tr>
+			<tr><td class="attr">HOA Dues</td>
+				<td>$285</td>
+			</tr>
+		</table>
+	</div> -->
+
+	<section id="secondary_keys" class="interactive">
+		<div id="bedbath" class="small left">
+			<img src="../bedrooms.png" /><span id="num_bedrooms" class="bold">3</span> <span id="bedrooms">Bedrooms</span> | 
+			<img src="../bathrooms.png" /><span id="num_full_baths" class="bold">2</span> (full), 
+			<span id="num_partial_baths" class="bold">1</span> (half)
+		</div>
+		<div id="sizetype" class="small right">
+			<span id="sq_ft" class="bold">2,100</span> ft<sup>2</sup>
+		</div>
+	</section>
+
+	<section id="main_images" class="info_section">
+		<div id="slider" class="swipe">
+		  	<div class="swipe-wrap">
+		    	<div class="img_container">
+		    		<img src="images/front.jpg" class="main" />
+		    	</div>
+				<div class="img_container">
+		    		<img src="images/living1.jpg" class="secondary" />
+		    	</div>
+		    	<div class="img_container">
+		    		<img src="images/kitchen.jpg" class="secondary" />
+		    	</div>
+		    	<div class="img_container">
+		    		<img src="images/dining-family1.jpg" class="secondary" />
+		    	</div>
+		    	<div class="img_container">
+		    		<img src="images/masterbed.jpg" class="secondary" />
+		    	</div>
+		    	<div class="img_container">
+		    		<img src="images/masterbath.jpg" class="secondary" />
+		    	</div>
+		    	<div class="img_container">
+		    		<img src="images/bedroom3.jpg" class="secondary" />
+		    	</div>
+		    	<div class="img_container">
+		    		<img src="images/bedroom2.jpg" class="secondary" />
+		    	</div>
+		    	<div class="img_container">
+		    		<img src="images/bedroom3.jpg" class="secondary" />
+		    	</div>
+		    	<div class="img_container">
+		    		<img src="images/patio.jpg" class="secondary" />
+		    	</div>
+		    	<div class="img_container">
+		    		<img src="images/front-in-fall.jpg" class="secondary" />
+		    	</div>
+	      	</div>
+		</div>
+		<!-- <div style="float: left; width: 100%; ">
+			<button id="morepics" type="button" class="btn btn-sm btn-info">See More Pictures</button></div> -->
+		<div id="page_indicator">
+			<ul id="dots">
+				<li class="selected"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<div style="width: 100%; text-align: center;"><input type="button" class="btn btn-sm btn-primary" value="Take a Tour" id="tour_button" /></div>
+	</section>
+
+
+
+	<section id="description" class="info_section">
+		<p>Light-filled two-story townhouse in the Prairie Manor subdivision located right next to the Prairie Path and Pioneer Park near Vallette &amp; York. Come see why this area is the best-kept secret in Elmhurst! <span>Enjoy convenient living with no exterior maintenance and the modern amenities you won’t find in rehabbed homes from the 50s and 60s.</span></p>
+
+		<!-- <p class="more_link"><a href="">more &raquo;</a></p> -->
+
+		<!-- <div style="width: 100%; text-align: center;"><input type="button" class="btn btn-sm btn-primary" value="Contact the seller" style="margin-top: 10px;" id="contact_button" /></div> -->
+	</section>
+
+<!-- 
+	<div style="width: 100%; text-align: center; margin-top: 15px;padding-top: 15px; padding-bottom: 15px; border-top: 1px solid #e6e6e6; ">
+	Swipe to see Home Details <img src="right_arrow.png" style="vertical-align: middle"/>
+	</div> 
+
+
+	<div class="swipebar">
+		<div class="swipe_prev_section">Home</div>
+		<div class="swipe_next_section">Tour</div>
+		<div class="swipe_arrows"><img src="left_arrow.png" />swipe<img src="right_arrow.png" /></div>
+	</div> -->
+	<section id="home_details" class="info_section">
+		<div class="heading" id="home_details_block">
+			<h1>Home Details</h1>
+		</div>
+		<div id="map">
+			<div id="map_container" class="full_container"></div>
+		
+			<div id="directions_bar">
+		    	<div id="from_to" style="float: left;"></div>
+		    	<div id="distance_time" style="text-align: right;"></div>
+			</div>
+			<div style="width: 100%; margin-top: 10px; padding-left: 10px; padding-right: 10px; display: none;">
+				<div>Enter your work address to estimate your commute from here:</div>
+				<div class="input-group input-group-sm" style="margin-top: 5px;">
+			      	<input type="text" class="form-control" id="work_address" name="work_address" />
+			      	<span class="input-group-btn">
+			        	<button id="work_address_button" class="btn btn-default" type="submit" onclick="calcRoute()">Go!</button>
+			      	</span>
+		    	</div>
+		    	<div id="directionsPanel"></div>
+		    </div>
+		</div>
+		<div class="col_container">
+			<div class="left_half">
+				<h2 class="secondary_details">Building Info</h2>
+				<table id="building_info">
+					<tr>
+						<td class="attr">Property Type</td>
+						<td class="value">2-story Townhome</td>
+					<tr>
+						<td class="attr">Parking</td>
+						<td class="value">2 car attached garage</td>
+					</tr>
+				</table>
+				<table class="secondary_details">
+					<tr>
+						<td class="attr">Basement</td>
+						<td class="value">Full, unfinished</td>
+					</tr>
+					<tr>
+						<td class="attr">Year Built</td>
+						<td class="value">1992</td>
+					</tr>
+					<tr>
+						<td class="attr">Lot Size</td>
+						<td class="value">1,742 ft<sup>2</sup></td>
+					</tr>
+					<tr>
+						<td class="attr">Attic</td>
+						<td class="value">Yes</td>
+					</tr>
+					<tr>
+						<td class="attr">Exterior</td>
+						<td class="value">Brick</td>
+					</tr>
+					<tr>
+						<td class="attr">Roof</td>
+						<td class="value">Shingle</td>
+					</tr>
+					<tr>
+						<td class="attr">Driveway</td>
+						<td class="value">Pavers</td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td class="attr">Status</td>
+						<td class="value">Active</td>
+					</tr>
+				</table>
+				<h2 class="secondary_details">Financial Info</h2>
+				<table id="financial_info">
+					<tr>
+						<td class="attr">Taxes</td>
+						<td class="value">$6,973 (2012)</td>
+					</tr>
+					<tr>
+						<td class="attr">HOA Fees</td>
+						<td class="value">$285 per month</td>
+					</tr>
+				</table>
+				<h2 class="secondary_details">Area Info</h2>
+				<table id="area_info" class="secondary_details">
+					<tr>
+						<td class="attr">Schools</td>
+						<td class="value"><a href="#schools" id="school_link">Elmhurst school district 205</a></td>
+					</tr>
+					<tr>
+						<td class="attr">WalkScore</td>
+						<td class="value"><a href="#neighborhood" id="walkscore_link">57/100 (somewhat walkable)</a></td>
+					</tr>
+				</table>
+				<h2 class="secondary_details">Utilities Info</h2>
+				<table id="utilities_info" class="secondary_details">
+					<tr>
+						<td class="attr">Heating</td>
+						<td class="value">Gas, Forced Air</td>
+					</tr>
+					<tr>
+						<td class="attr">Cooling</td>
+						<td class="value">Central A/C</td>
+					</tr>
+					<tr>
+						<td class="attr">Utilities</td>
+						<td class="value">Public Sewer &amp; Water</td>
+					</tr>
+				</table>
+			</div>
+
+			<p class="more_link"><a href="#home_details" id="home_details-more">more &raquo;</a></p>
+			<!-- <span id="more_details_link">
+				<a href="">More details</a>
+			</span>
+			<span id="fewer_details_link" style="display: none;">
+				<a href="">Fewer details</a>
+			</span> -->
+		</div>
+	</section>
+	<!-- <div style="width: 100%; text-align: center; margin-top: 15px;padding-top: 15px; padding-bottom: 15px; border-top: 1px solid #e6e6e6; ">
+	Swipe to Take a Tour<img src="right_arrow.png" style="vertical-align: middle"/>
+	</div> 
+
+	<div class="swipebar">
+		<div class="swipe_prev_section">Details</div>
+		<div class="swipe_next_section">Neighborhood</div>
+		<div class="swipe_arrows"><img src="left_arrow.png" />swipe<img src="right_arrow.png" /></div>
+	</div> -->
+	<section id="tour" class="info_section">
+		<div class="heading" id="tour_block">
+			<h1 class="nofloat">Take a Tour</h1>
+			<div id="video_tour_link" class="right heading_link" style="display: none;">
+				Video tour <span class="glyphicon glyphicon-facetime-video"></span>
+			</div>
+		</div>
+		<div class="col_container">
+			<h2>1st Floor</h2>
+			<table id="floor1" class="floor_dims">
+				<tr>
+					<td class="key">1</td>
+					<td class="room"><a href="" class="room1_link">Living Room</a></td>
+					<td class="dims"><span id="room1_dims">20x15</span></td>
+				</tr>
+				<tr>
+					<td class="key">2</td>
+					<td class="room"><a href="" class="room2_link">Kitchen</a></td>
+					<td class="dims"><span id="room2_dims">13x10</span></td>
+				</tr>
+				<tr>
+					<td class="key">3</td>
+					<td class="room"><a href="" class="room3_link">Family/Dining Room</a></td>
+					<td class="dims"><span id="room3_dims">21x10</span></td>
+				</tr>
+				<tr>
+					<td class="key"></td>
+					<td class="room">Powder Room</td>
+					<td class="dims">---</td>
+				</tr>
+				<tr>
+					<td class="key"></td>
+					<td class="room">Garage</td>
+					<td class="dims">---</td>
+				</tr>
+			</table>
+			<div class="floorplan">
+				<div class="room1_cell room interactive" title="Living Room">
+					<span class="floorplan_room_num">1</span></div>
+				<div class="room2_cell room interactive" title="Kitchen">
+					<span class="floorplan_room_num">2</span></div>
+				<div class="room3_cell room interactive" title="Family/Dining Room">
+					<span class="floorplan_room_num">3</span></div>
+			</div>
+		</div>
+		<div class="col_container">
+			<h2>2nd Floor</h2>
+			<table id="floor2" class="floor_dims">
+				<tr>
+					<td class="key">4</td>
+					<td class="room"><a href="" class="room4_link">Master Bedroom</a></td>
+					<td class="dims"><span id="room4_dims">18x14</span></td>
+				</tr>
+				<tr>
+					<td class="key"></td>
+					<td class="room">Master Bathroom</td>
+					<td class="dims">---</td>
+				</tr>
+				<tr>
+					<td class="key">5</td>
+					<td class="room"><a href="" class="room5_link">Bedroom #2</a></td>
+					<td class="dims"><span id="room5_dims">14x10</span></td>
+				</tr>
+				<tr>
+					<td class="key">6</td>
+					<td class="room"><a href="" class="room6_link">Bedroom #3</a></td>
+					<td class="dims"><span id="room6_dims">11x10</span></td>
+				</tr>
+				<tr>
+					<td class="key"></td>
+					<td class="room">Bathroom</td>
+					<td class="dims">---</td>
+				</tr>
+				<tr>
+					<td class="key"></td>
+					<td class="room">Laundry Room</td>
+					<td class="dims">---</td>
+				</tr>
+			</table>
+			<div class="floorplan">
+				<div class="room5_cell room interactive">
+					<span class="floorplan_room_num">5</span></div>
+				<div class="room4_cell room interactive">
+					<span class="floorplan_room_num">4</span></div>
+				<div class="room6_cell room interactive">
+					<span class="floorplan_room_num">6</span></div>
+			</div>
+		</div>
+
+		<div class="col_container">
+			<p class="more_link"><a href="#tour" id="tour-more">more &raquo;</a></p>
+		</div>
+		
+		<article id="room1" class="secondary_details">
+			<h3>Living Room</h3>
+			<img src="images/living1.jpg" class="tour_photo" />
+			<div class="col_container">
+				<ul class="room_features">
+					<li>Hardwood flooring</li>
+					<li>Dual privacy blinds</li>
+					<li>Vaulted entry</li>
+					<li>Recessed lights</li>
+				</ul>
+				
+				<div class="room_floorplan">
+					<h2 class="floor_label label1 interactive">1st floor
+						<img src="../backtop.png" class="backtop" /></h2>
+					<div class="room1_cell room active" title="Living Room">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room2_cell room interactive" title="Kitchen">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room3_cell room interactive" title="Family/Dining Room">
+						<span class="floorplan_room_num"></span></div>
+				</div>
+			</div>
+		</article>
+
+		<article id="room2" class="secondary_details">
+			<h3>Kitchen</h3>
+			<img src="images/kitchen.jpg" class="tour_photo" />
+			<div class="col_container">
+				<ul class="room_features">
+					<li>Hardwood flooring</li>
+					<li>Dual privacy blinds</li>
+					<li>Oak cabinets</li>
+					<li>Stainless steel appliances
+						<ul>
+							<li>Refrigerator</li>
+							<li>Dishwasher</li>
+							<li>Gas range</li>
+							<li>Built-in microwave</li>
+	 					</ul>
+					</li>
+					<li>Garbage disposal</li>
+				</ul>
+				<div class="room_floorplan">
+					<h2 class="floor_label label1 interactive">1st floor
+						<img src="../backtop.png" class="backtop" /></h2>
+					<div class="room1_cell room interactive">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room2_cell room active">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room3_cell room interactive">
+						<span class="floorplan_room_num"></span></div>
+				</div>
+			</div>
+		</article>
+
+		<article id="room3" class="secondary_details">
+			<h3>Family/Dining Room</h3>
+			<img src="images/dining-family1.jpg" class="tour_photo" />
+			<div class="caption">
+				Multi-use room open to the kitchen can be used as either a family room or formal dining room.
+			</div>
+			<div class="col_container">
+				<ul class="room_features">
+					<li>Hardwood flooring</li>
+					<li>Dual privacy blinds</li>
+					<li>Gas start fireplace</li>
+				</ul>
+				<div class="room_floorplan">
+					<h2 class="floor_label label1 interactive">1st floor
+						<img src="../backtop.png" class="backtop" /></h2>
+					<div class="room1_cell room interactive">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room2_cell room interactive">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room3_cell room active">
+						<span class="floorplan_room_num"></span></div>
+				</div>
+			</div>
+		</article>
+		
+		<article id="room4" class="secondary_details">
+			<h3>Master Bedroom</h3>
+			<img src="images/masterbed.jpg" class="tour_photo" />
+			<img src="images/masterbath.jpg" class="tour_photo" />
+			<div class="col_container">
+				<ul class="room_features">
+					<li>Carpet flooring</li>
+					<li>Dual privacy blinds</li>
+					<li>Ceiling fan</li>
+					<li>2 walk-in closets with California Closets</li>
+				</ul>
+				<div class="room_floorplan">
+					<h2 class="floor_label label2 interactive">2nd floor
+						<img src="../backtop.png" class="backtop" /></h2>
+					<div class="room5_cell room interactive">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room4_cell room active">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room6_cell room interactive">
+						<span class="floorplan_room_num"></span></div>
+				</div>
+			</div>
+		</article>
+
+		<article id="room5" class="secondary_details">
+			<h3>Bedroom #2</h3>
+			<img src="images/bedroom3.jpg" class="tour_photo" />
+			<div class="col_container">
+				<ul class="room_features">
+					<li>Carpet flooring</li>
+					<li>Dual privacy blinds</li>
+					<li>Double-wide closet with California Closets</li>
+				</ul>
+				<div class="room_floorplan">
+					<h2 class="floor_label label2 interactive">2nd floor
+						<img src="../backtop.png" class="backtop" /></h2>
+					<div class="room5_cell room active">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room4_cell room interactive">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room6_cell room interactive">
+						<span class="floorplan_room_num"></span></div>
+				</div>
+			</div>
+		</article>
+
+		<article id="room6" class="secondary_details">
+			<h3>Bedroom #3</h3>
+			<img src="images/bedroom2.jpg" class="tour_photo" />
+			<div class="col_container">
+				<ul class="room_features">
+					<li>Carpet flooring</li>
+					<li>Dual privacy blinds</li>
+					<li>California Closets</li>
+				</ul>
+				<div class="room_floorplan">
+					<h2 class="floor_label label2 interactive">2nd floor
+						<img src="../backtop.png" class="backtop" /></h2>
+					<div class="room5_cell room interactive">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room4_cell room interactive">
+						<span class="floorplan_room_num"></span></div>
+					<div class="room6_cell room active">
+						<span class="floorplan_room_num"></span></div>
+				</div>
+			</div>
+		</article>
+
+		<article id="other_photos" class="secondary_details">
+			<h3 class="last">Other Photos</h3>
+			<div class="portrait">
+				<img src="images/entry2.jpg" class="tour_photo" style="margin-bottom: 0px;"/>
+			</div>
+
+			<div class="portrait">
+				<img src="images/laundry-landing.jpg" class="tour_photo" />
+				<div class="caption">
+					Washer &amp; dryer located on the 2nd floor
+				</div>
+			</div>
+
+			<div class="landscape">
+				<img src="images/patio.jpg" class="tour_photo" />
+				<div class="caption">
+					Secluded patio behind unit
+				</div>
+			</div>
+
+			<div>
+				<img src="images/front-in-fall.jpg" class="tour_photo" />
+			</div>
+			
+			<p style="text-align: center; font-weight: bold; margin-top: 10px;"><a href="" id="tour-back">&laquo; back</a></p>
+			<!-- <img src="../backtop.png" class="backtop interactive" style="display: block; margin: 10px auto 15px auto;" /> -->
+		</article>
+	</section>
+	<!-- <div style="width: 100%; text-align: center; margin-top: 15px;padding-top: 15px; padding-bottom: 15px; border-top: 1px solid #e6e6e6; ">
+	Swipe to see What's Nearby <img src="right_arrow.png" style="vertical-align: middle"/>
+	</div> 
+
+	<div class="swipebar">
+		<div class="swipe_prev_section">Tour</div>
+		<div class="swipe_next_section">Schools</div>
+		<div class="swipe_arrows"><img src="left_arrow.png" />swipe<img src="right_arrow.png" /></div>
+	</div> -->
+	<section id="neighborhood" class="info_section">
+		<div class="heading" id="neighborhood_block">
+			<h1>What's Nearby</h1>
+		</div>
+		<div id="transit_walk_score" class="col_container">
+			<div style="float: left;">Walk Score: <span id="walk_score" class="bold">57</span>/100</div>
+			<div style="float: right;">Transit Score: <span id="transit_score" class="bold">33</span>/100</div>
+		</div>
+		<div id="street_container" class="full_container secondary_details"></div>
+
+		<div class="col_container" id="yelp_nearby">
+			<!-- populated by ajax requests to the Yelp Search API -->
+		</div>
+		<div class="col_container" style="text-align: center;">
+			<img src="http://s3-media3.ak.yelpcdn.com/assets/2/www/img/9c9b10dc7226/developers/reviewsFromYelpWHT.gif">
+			<p class="more_link"><a href="#neighborhood" id="neighborhood-more">more &raquo;</a></p>
+		</div>
+	</section>
+	<!--
+	<div style="width: 100%; text-align: center; margin-top: 15px;padding-top: 15px; padding-bottom: 15px; border-top: 1px solid #e6e6e6; ">
+	Swipe to see Schools <img src="right_arrow.png" style="vertical-align: middle"/>
+	</div> 
+
+	<div class="swipebar">
+		<div class="swipe_prev_section">Neighborhood</div>
+		<div class="swipe_next_section">Contact</div>
+		<div class="swipe_arrows"><img src="left_arrow.png" />swipe<img src="right_arrow.png" /></div>
+	</div> -->
+	<section id="schools" class="info_section">
+		<div class="heading" id="schools_block">
+			<h1>Schools</h1>
+			<div class="right heading_link">
+				<span id="show_private_schools_link">
+					<a href="" title="tooltip test" class="tooltip">Show private schools</a>
+				</span>
+				<span id="hide_private_schools_link" style="display: none;">
+					<a href="">Hide private schools</a>
+				</span>
+			</div>
+		</div>
+
+		<div class="col_container">
+			<div class="col">
+				<h2>Grades K-5</h2>
+				<table id="elem_schools">
+					<tr class="public_school"><td class="school">Lincoln Elementary School</td>
+						<td class="school_rating"><img src="../greatschools_10.png" class="school_rating" /></td>
+						<td class="distance">0.5 mi</td>
+					</tr>
+					<!-- <tr class="secondary_details"><td class="school">Immaculate Conception</td>
+						<td class="school_rating">---</td>
+						<td class="distance">0.5 mi</td>
+					</tr>
+					<tr class="secondary_details"><td class="school">Visitation</td>
+						<td class="school_rating">---</td>
+						<td class="distance">0.5 mi</td>
+					</tr> -->
+				</table>
+			</div>
+			<div class="col">
+				<h2>Grades 6-8</h2>
+				<table id="middle_schools">
+					<tr class="public_school"><td class="school">Sandburg Middle School</td>
+						<td class="school_rating"><img src="../greatschools_10.png" class="school_rating" /></td>
+						<td class="distance">1.2 mi</td>
+					</tr>
+					<!-- <tr class="secondary_details"><td class="school">Immaculate Conception</td>
+						<td class="school_rating">---</td>
+						<td class="distance">0.5 mi</td>
+					</tr>
+					<tr class="secondary_details"><td class="school">Visitation</td>
+						<td class="school_rating">---</td>
+						<td class="distance">0.5 mi</td>
+					</tr> -->
+				</table>
+			</div>
+			<div class="col">
+				<h2>Grades 9-12</h2>
+				<table id="high_schools">
+					<tr class="public_school"><td class="school">York Community High School</td>
+						<td class="school_rating"><img src="../greatschools_10.png" class="school_rating" /></td>
+						<td class="distance">1.1 mi</td>
+					</tr>
+					<!-- <tr class="secondary_details"><td class="school">Timothy Christian High School</td>
+						<td class="school_rating">---</td>
+						<td class="distance">1.1 mi</td>
+					</tr>
+					<tr class="secondary_details"><td class="school">IC Catholic Prep</td>
+						<td class="school_rating">---</td>
+						<td class="distance">1.1 mi</td>
+					</tr> -->
+				</table>
+			</div>
+		</div>
+
+		<div id="schoolmap_container" class="full_container secondary_details"></div>
+
+		<p class="more_link"><a href="#schools" id="schools-more">more &raquo;</a></p>
+	</section>
+<!-- 			
+	<div style="width: 100%; text-align: center; margin-top: 15px;padding-top: 15px; padding-bottom: 15px; border-top: 1px solid #e6e6e6; ">
+	Swipe to Contact the Seller <img src="right_arrow.png" style="vertical-align: middle"/>
+	</div> 
+
+	<div class="swipebar">
+		<div class="swipe_prev_section">Schools</div>
+		<div class="swipe_next_section">Home</div>
+		<div class="swipe_arrows"><img src="left_arrow.png" />swipe<img src="right_arrow.png" /></div>
+	</div> -->
+	<section id="contact" class="info_section">
+		<div class="heading" id="contact_block">
+			<h1>Contact the Seller</h1>
+		</div>
+
+		<div class="col_container">
+			
+			<img src="seller.jpg" class="contact_photo" />
+			<div class="contact_info">
+				<h2 class="noclear">Tai Zhang</h2>
+				<ul>
+					<li><a href="">send e-mail</a></li>
+					<li>508-479-0398</li>
+				</ul>
+				<p style="margin-top: 10px;">I've lived here for the past 3 years and love it! Get in touch and I'll be happy to show you my home.</p>
+			</div>
+		
+			<input type="text" class="form-control input-sm" placeholder="Your Name" />
+			<input type="text" class="form-control input-sm" placeholder="Your e-mail address or phone number" style="margin: 8px 0px;" />
+			<textarea class="form-control input-sm" rows="3">Hi Tai, I found this listing on Biddenly and would like to learn more about your home. Thanks!</textarea>
+			<input type="button" class="btn btn-primary btn-sm" value="Send" style="display: block; margin: 8px auto;" />
+		</div>
+	</section>
+
+	<section id="footer_nav">
+		<ul class="footer">
+			<li><a href="" id="footer-top">Back to Top</a></li>
+			<li><a href="#home_details" id="footer-home_details">Home Details</a></li>
+		</ul>
+		<ul class="footer">
+			<li><a href="#tour" id="footer-tour">Take a Tour</a></li>
+			<li><a href="#neighborhood" id="footer-neighborhood">What's Nearby</a></li>
+			<li><a href="#schools" id="footer-schools">Schools</a></li>
+		</ul>
+	</section>
+
+	<footer>
+		&copy; Biddenly, Inc. 2014
+	</footer>
+
+<script>
+var bullets = document.getElementById('dots').getElementsByTagName('li');
+
+window.mySwipe = new Swipe(document.getElementById('slider'), {
+  startSlide: 0,
+  //auto: 2000,
+  speed: 200,
+  callback: function(pos) {
+
+      var i = bullets.length;
+      while (i--) {
+        bullets[i].className = ' ';
+      }
+      bullets[pos].className = 'selected';
+    }
+});
+
+
+</script>
+
+</body>
+</html>

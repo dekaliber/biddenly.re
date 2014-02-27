@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	
+
 	// Yelp stuff
 	var auth = { 
 		consumerKey: "TV8ZPlzTG6Hn4fpvUGXqCA", 
@@ -12,7 +12,7 @@ $(document).ready(function() {
 	};
 
 	var terms = ['Restaurants', 'Grocery Stores', 'Cleaners', 'Banks', 'Nightlife', 'Parks'];
-	var near = '3+Manchester+Lane,+Elmhurst+IL+60126';
+	var near = address;
 	var latlong = "41.883046,-87.948925"
 
 	var accessor = {
@@ -115,12 +115,20 @@ $(document).ready(function() {
 			for (var i=0; i<5; i++) {
 				var rating = globalStore[a].businesses[i].rating + '';
 				rating = rating.replace('.', '');
-				$('#neighborhood'+a+ ' table').append('<tr><td class="venue">' + globalStore[a].businesses[i].name + '</td><td class="rating"><div class="rating stars' + rating + '"></div></td><td class="distance">' + (globalStore[a].businesses[i].distance*0.00062137).toFixed(1) + ' mi</td></tr>');
-
+				if (i<3) { // anything beyond the first 3 rows will be hidden by default
+					$('#neighborhood'+a+ ' table').append('<tr><td class="venue">' + globalStore[a].businesses[i].name + '</td><td class="rating"><div class="rating stars' + rating + '"></div></td><td class="distance">' + (globalStore[a].businesses[i].distance*0.00062137).toFixed(1) + ' mi</td></tr>');
+				} else {
+					$('#neighborhood'+a+ ' table').append('<tr class="secondary_details"><td class="venue">' + globalStore[a].businesses[i].name + '</td><td class="rating"><div class="rating stars' + rating + '"></div></td><td class="distance">' + (globalStore[a].businesses[i].distance*0.00062137).toFixed(1) + ' mi</td></tr>');
+				}
 			}	
+		}
+
+		for (var a=3; a<globalStore.length; a++) {
+			$('#neighborhood'+a).addClass('secondary_details');
 		}
 	});
 
+	//$('.secondary_details').show();
 	//$('#video_tour_link').fadeTo(0,0);
 
 	// populate dimensions in floorplans
@@ -132,6 +140,23 @@ $(document).ready(function() {
 		$(curr_room).find('.active').children().append($(curr_room_dims).text());
 		$('.room' + i + '_cell').attr("title", curr_room_name);
 	}
+
+
+	// set the right heights for all 
+
+	// load the map
+	initialize();
+
+	$('#menu_button').click(function (event) {
+		// if ($('#mobilemenu').is(":visible")) {
+		// 	$('#monthly_calc_toggle span').removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+		// } else {
+		// 	$('#monthly_calc_toggle span').addClass("glyphicon-chevron-up").removeClass("glyphicon-chevron-down");
+		// }
+		$('#mobilemenu').slideToggle(100);
+	});
+
+	$('#mobilemenu ul li').click(footerToggleSection);
 
 	// toggle monthly calculator
 	$('#monthly_calc_toggle').click(function (event) {
@@ -177,87 +202,175 @@ $(document).ready(function() {
 
 	// event handlers for inter-page travel
 	$('#secondary_keys').click(function (event) {
+		$('.info_section').hide();
+		$('#home_details').show();
+		$('#home_details .secondary_details').show();
+		$('#home_details-more').html("&laquo; back");
 		$('html, body').animate({
-	    scrollTop: ($('#home_details').offset().top)
-		},300);
+		    scrollTop: 0
+			},0);
 	});
 
-	$('#main_images').click(function (event) {
+	$('#tour_button').click(function (event) {
+		$('.info_section').hide();
+		$('#tour').show();
+		$('#tour .secondary_details').show();
+		$('#tour-more').html("&laquo; back");
 		$('html, body').animate({
-	    scrollTop: ($('#tour').offset().top)
-		},300);
-	});
-
-	$('#morepics').click(function (event) {
-		$('html, body').animate({
-	    scrollTop: ($('#tour').offset().top)
-		},300);
-	});
-
-	$('#contact_button').click(function (event) {
-		$('html, body').animate({
-	    scrollTop: ($('#contact').offset().top)
-		},300);
+		    scrollTop: 0
+			},0);
 	});
 
 	$('#school_link').click(function (event) {
+		$('#home_details').hide();
+		$('#schools').show();
+		$('#schools .secondary_details').show();
+		$('.more_link a').html("more &raquo;");
+		$('#schools-more').html("&laquo; back");
+		google.maps.event.trigger(schoolmap, "resize");
 		$('html, body').animate({
-	    scrollTop: ($('#schools').offset().top)
-		},500);
+		    scrollTop: 0
+			},0);
 		event.preventDefault();
 	});
 
 	$('#walkscore_link').click(function (event) {
+		$('#home_details').hide();
+		$('#neighborhood').show();
+		$('#neighborhood .secondary_details').show();
+		$('.more_link a').html("more &raquo;");
+		$('#neighborhood-more').html("&laquo; back");
+		google.maps.event.trigger(panorama, "resize");
 		$('html, body').animate({
-	    scrollTop: ($('#neighborhood').offset().top)
-		},500);
+		    scrollTop: 0
+			},0);
 		event.preventDefault();
 	});
+
+	// $('#contact_button').click(function (event) {
+	// 	// mySwipe.slide(5, 200);
+	// 	$('html, body').animate({
+	//     scrollTop: ($('#contact').offset().top)
+	// 	},500);
+	// });
+
+	function toggleSection() {
+		var id = $(this).attr('id').split("-");
+		var section = "#" + id[0];
+		var sectionlink = "#" + id[0] + "-more";
+		
+		if ($(section + ' .secondary_details').is(':visible')) {
+			$('.info_section').show();
+			$('.secondary_details').hide();
+			$(sectionlink).html("more &raquo;");
+			$('html, body').animate({
+			    scrollTop: ($(section).offset().top - 40)
+				},0);
+		} else {
+			$('.info_section').hide();
+			$(section).show();
+			$(section + ' .secondary_details').show();
+			$(sectionlink).html("&laquo; back");
+			$('html, body').animate({
+			    scrollTop: 0
+				},0);
+		}
+		google.maps.event.trigger(schoolmap, "resize");
+		google.maps.event.trigger(panorama, "resize");
+		schoolmap.setCenter(schoolmapCenter);
+		event.preventDefault();
+	}
+
+	$('.more_link a').click(toggleSection);
 
 	$('.backtop').click(function (event) {
 		$('html, body').animate({
 	    scrollTop: ($('#tour').offset().top)
-		},500);
+		},300);
 		event.preventDefault();
 	});
 
 	$('.floor_label').click(function (event) {
 		$('html, body').animate({
 	    scrollTop: ($('#tour').offset().top)
-		},500);
-		event.preventDefault();
-	});
-
-	$('#footer_top_link').click(function (event) {
-		$('html, body').animate({
-	    scrollTop: 0
-		},700);
-		event.preventDefault();
-	});
-	$('#footer_details_link').click(function (event) {
-		$('html, body').animate({
-	    scrollTop: ($('#home_details').offset().top)
-		},700);
-		event.preventDefault();
-	});
-	$('#footer_tour_link').click(function (event) {
-		$('html, body').animate({
-	    scrollTop: ($('#tour').offset().top)
-		},700);
-		event.preventDefault();
-	});
-	$('#footer_neighborhood_link').click(function (event) {
-		$('html, body').animate({
-	    scrollTop: ($('#neighborhood').offset().top)
-		},500);
-		event.preventDefault();
-	});
-	$('#footer_schools_link').click(function (event) {
-		$('html, body').animate({
-	    scrollTop: ($('#schools').offset().top)
 		},300);
 		event.preventDefault();
 	});
+
+	// footer links
+	function footerToggleSection() {
+		var id = $(this).attr('id').split("-");
+		var section = "#" + id[1];
+		var sectionlink = "#" + id[1] + "-more";
+		
+		if (section == '#top') {
+			if ($('.secondary_details').is(':visible')) {
+				$('.info_section').show();
+				$('.secondary_details').hide();
+				$('.more_link a').html("more &raquo;");
+			} 
+			$('html, body').animate({
+			    scrollTop: 0
+				},300);
+		} else if (section == '#contact') {
+			if ($('.secondary_details').is(':visible')) {
+				$('.info_section').show();
+				$('.secondary_details').hide();
+				$('.more_link a').html("more &raquo;");
+			} 
+			$('html, body').animate({
+		    scrollTop: ($('#contact').offset().top - 40)
+			},500);
+			
+		} else if ($(section + ' .secondary_details').is(':visible')) {
+			$('html, body').animate({
+			    scrollTop: 0
+				},300);
+		} else {
+			$('.info_section').hide();
+			$(section).show();
+			$(section + ' .secondary_details').show();
+			$('.more_link a').html("more &raquo;");
+			$(sectionlink).html("&laquo; back");
+			$('html, body').animate({
+			    scrollTop: 0
+				},300);
+		}
+
+		if ($('#mobilemenu').is(':visible')) {
+			$('#mobilemenu').slideUp(100);
+		}
+		google.maps.event.trigger(schoolmap, "resize");
+		google.maps.event.trigger(panorama, "resize");
+		schoolmap.setCenter(schoolmapCenter);
+		event.preventDefault();
+	}
+
+	$('.footer li a').click(footerToggleSection);
+
+	// $('.swipe_prev_section').click(function (event) {
+	// 	mySwipe.prev();
+	// });
+	// $('.swipe_next_section').click(function (event) {
+	// 	mySwipe.next();
+	// });
+
+	// $('.swipe_arrows').click(function (event) {
+	//     if (event.pageX - $(this).offset().left > $(this).width() / 2) {
+	//         mySwipe.next();
+	//     } else {
+	//         mySwipe.prev();
+	//     }
+	// });
+
+	$('#dots li').click(function (event) {
+		mySwipe.slide($(this).index(), 200);
+	});
+
+	$('.flip_container').click(function (event) {
+		$(this).children(":first").toggleClass("flipped");
+	});
+	
 
 	// floor plan navigation & tooltips
 	$('.floor_dims td a').click(roomNavigationClick);
@@ -279,8 +392,14 @@ $(document).ready(function() {
 		console.log(id);
 		id = id.substring(0,5);
 		console.log(id);
+
+		$('.info_section').hide();
+		$('#tour').show();
+		$('#tour .secondary_details').show();
+		$('#tour-more').html("&laquo; back");
+
 		$('html, body').animate({
-	    scrollTop: ($('#' + id).offset().top)
+	    scrollTop: ($('#' + id).offset().top - 40)
 		},300);
 		event.preventDefault();
 	}
@@ -306,12 +425,12 @@ $(document).ready(function() {
 	}
 
 
-	tooltip();
+	//tooltip();
 
 });
 
 this.tooltip = function(){	
-	xOffset = 4;
+	xOffset = -4;
 	yOffset = 4;		
 
 	$(".room_floorplan div").hover(function(e){
@@ -324,7 +443,7 @@ this.tooltip = function(){
 			$("body").append("<p id='tooltip'>"+ this.t +"</p>");
 			$("#tooltip")
 			.css("top",($(this).offset().top + yOffset) + "px")
-			.css("left",($(this).offset().left + $(this).width() - xOffset) + "px")
+			.css("left",($(this).offset().left - $(this).width() - xOffset) + "px")
 			.show();
 		}
     },

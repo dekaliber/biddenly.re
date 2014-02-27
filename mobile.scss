@@ -1,6 +1,14 @@
 @import "reset";
 @import "mixins";
 
+@viewport{
+    zoom: 1.0;
+    width: extend-to-zoom;
+}
+@-ms-viewport{
+    width: extend-to-zoom;
+    zoom: 1.0;
+}
 
 @font-face {
     font-family: 'Open Sans';
@@ -63,6 +71,7 @@ $color_main: #333;
 $color_light: #666;
 $p_leading: 140%;
 $list_leading: 150%;
+$padding_amt: 10px;
 
 $high_res: 1100px;
 $med_res: 800px;
@@ -72,9 +81,9 @@ $small_ratio: .85;
 $trans_time: 0.5s;
 
 @mixin lr_padding {
-	padding-left: 15px;
-	padding-right: 15px;
-
+	//mobile-specific
+	padding-left: $padding_amt;
+	padding-right: $padding_amt;
 }
 @function small-floorplan($n) {
 	@return $n*$small_ratio;
@@ -89,91 +98,57 @@ body {
 	font-size: 13px;
 	font-weight: 400;
 	color: $color_main;
-	background-image: url(noise.gif);
+	
 }
 header {
 	// faded logo style
-	position: fixed;
-	top: 20px;
-	width: 12.5%;
+	// width: 100%;
+	// text-align: center;
+	// padding: 6px 10px 6px 10px;
+	// color: #ccc;
+	// @include linear-gradient(#eee, 90%, #cecece);
+
+	width: 100%; 
 	text-align: center;
-	@include opacity(25);
-	@include transition(padding, $trans_time);
-	
-	@media screen and (min-width: 1600px) {
-		width: 100%;
-		margin: 0 auto;
-		text-align: center;
-		z-index: 100;
-
-		img {
-			left: -695px;
-		}
-	}
-
-	@media screen and (max-width: $high_res) {
-		position: relative;
-		width: 100%;
-		padding-left: 5%;
-		min-width: 600px;
-		margin: 0 auto;
-		text-align: left;
-		top: 10px;
-	}
-
-	@media screen and (max-width: $low_res) {
-		width: 100%;
-		padding-left: 15px;
-		margin: 0;
-	}
-
-
-	// blue bar style
-/* 
-	height: 45px;
-	width: 100%;
+	background: #fff; 
+	border-bottom: 1px solid #e6e6e6; 
+	padding: 0px 10px 0px 10px;
+	color: #ccc; 
+	height: 40px;
 	position: fixed;
+	top: 0;
 	z-index: 100;
-	border-bottom: 1px solid rgb(35,149,224);
-
+	@include linear-gradient(#fff, 0%, #eee);
 	@include shadow(0, 2px, 4px, rgba(0,0,0,0.25));
-	@include linear-gradient(#68b6ea, 27%, #56ade7);
-*/
+	
+	img {
+		vertical-align: middle;
+	}
+	// blue bar style
+
+	// height: 45px;
+	// width: 100%;
+	// position: fixed;
+	// z-index: 100;
+	// border-bottom: 1px solid rgb(35,149,224);
+
+	// @include shadow(0, 2px, 4px, rgba(0,0,0,0.25));
+	// @include linear-gradient(#68b6ea, 27%, #56ade7);
+
 }
 img#logo {
 	position: relative;
-	width: 95px;
+	width: 60px;
+	@include opacity(25);
 }
 div#content_container {
-	width: 75%;
-	max-width: 1200px;
-	min-width: 600px;
-	height: auto;
-	margin: 0 auto;
-	padding: 20px 0 15px 0;
-	//padding: 45px 0 15px 0; 
-	background: #ffffff;
-	@include transition(width, $trans_time);
-
+	
+	z-index: 2;
 	@include shadow(0, 0, 4px, rgba(0,0,0,0.25));
-
-	position: relative;
-	z-index: 5;
-
-	@media screen and (max-width: $high_res) {
-		width: 90%;
-		margin-top: 15px;
-	}
-
-	@media screen and (max-width: $low_res) {
-		width: 100%;
-		padding-top: 15px;
-	}
-
 }
 h1 {
 	font-family: $section_heading;
-	font-size: 24px;
+	font-size: 18px;
 	float: left;
 }
 h1.nofloat {
@@ -186,21 +161,32 @@ h2, h3 {
 	font-size: 13px;
 	margin-bottom: 5px;
 }
+h2 {
+	clear: both;
+	margin-top: 15px;
+}
+h2.noclear {
+	clear: none;
+}
 h3.last {
 	margin-left: 0;
 }
 p {
 	line-height: $p_leading;
 }
+p.more_link {
+	text-align: center; 
+	font-weight: bold;
+	margin-top: 5px;
+}
 table {
-	margin-bottom: 10px;
+
 }
 
 footer {
 	width: 100%;
-	margin-top: 20px;
+	margin: 15px auto;
 	text-align: center;
-	height: 20px;
 	font-size: 11px;
 	color: #808080;
 }
@@ -229,66 +215,76 @@ strong {
 
 /* Sections */
 section {
-	margin-top: 15px;
 	clear: both;
 }
 section.info_section {
 	line-height: $list_leading;
-	border-top: $gray_border;
-	padding-top: 8px;
+	//border-top: $gray_border;
+	padding-bottom: 15px;
 }
 section#primary_keys {
-	margin-top: 0;
+	margin-top: 40px;
+	padding-top: 12px;
 	font-weight: 300;
-	height: 65px;
+	height: 60px;
 	border-bottom: $gray_border;
 	@include lr_padding;
-
-	@media screen and (max-width: $low_res) {
-		height: 60px;
-	}
 }
+
+#bedbath img {
+	vertical-align: top;
+	margin-right: 5px;
+	margin-top: -5px;
+	display: none;
+}
+
+@media screen and (max-width: $low_res) {
+	#bedbath img {
+		display: inline;
+	}
+	#bedrooms {
+		display: none;
+	}
+	
+}
+
 section#secondary_keys {
 	font-weight: 300;
-	height: 32px;
+	height: 35px;
 	border-bottom: $gray_border;
+	padding-top: 10px;
 	@include lr_padding;
 	@include linear-gradient(#fff, 0%, #eee);
-
-	@media screen and (max-width: $low_res) {
-	}
 }
 section#main_images {
 	margin: 0;
+	text-align: center;
 }
 section#description {
-	padding-bottom: 10px;
+	padding-bottom: 15px;
 	@include lr_padding;
 }
 section#contact {
-	border-bottom: $gray_border;
-	padding-bottom: 200px;
-
-	@media screen and (max-width: $med_res) {
-		padding-bottom: 100px;
-	}
+	padding-bottom: 30px;
 }
 section#footer_nav {
 	margin-top: 0px;
 	font-weight: 300;
-	height: 33px;
+	height: 60px;
 	width: 100%;
+	border-top: $gray_border;
 	border-bottom: $gray_border;
 	text-align: center;
-	padding-top: 6px;
+	padding-top: 8px;
 	@include lr_padding;
 }
 ul.footer {
 	width: 100%;
+	margin-bottom: 6px;
 
 	li {
 		display: inline-block;
-		line-height: 21px;
+		line-height: 18px;
 		border-left: 1px solid #e6e6e6;
 		vertical-align: middle;
 		@include lr_padding;
@@ -299,25 +295,18 @@ ul.footer {
 	}
 }
 
-div#address, div#bedbath {
+.left {
 	float: left;
-}
-div#price, div#sizetype {
-	float: right;
 }
 .right {
 	text-align: right;
 }
 .large {
-	font-size: 30px;
+	font-size: 20px;
 	margin-bottom: 5px;
-
-	@media screen and (max-width: $low_res) {
-		font-size: 26px;
-	}
 }
 .small {
-	font-size: 15px;
+	font-size: 14px;
 }
 .secondary_details {
 	display: none;
@@ -333,33 +322,23 @@ sup {
   	top: -0.4em;
 }
 div#left_img_container {
-	height: 400px; 
-	max-width: 60%;
-	overflow: hidden;
-	float: left;
-	@include transition(height, $trans_time);
-
-	@media screen and (max-width: $med_res) {
-		height: 300px; 
-	}
+ 	//overflow: hidden;
+ 	//white-space: nowrap;
 }
-div#right_img_container {
-	@extend div#left_img_container;
-	
-	min-width: 40%; 
-	float: none;
-
-	@media screen and (max-width: $low_res) {
-		height: 300px; 
-	}
+.img_container {
+	width: 320px;
+	overflow: hidden;
+}
+img.main {
+	//margin-left: -10%;
 }
 img.main, img.secondary {
-	height: 100%;
+	width: 100%;
+	display: block;
 }
 button#morepics {
-	position: absolute;
-	right: 10px;
-	margin-top: -45px;
+	position: relative;
+	margin-top: -60px;
 }
 .contact_photo {
 	@include rounded(15px);
@@ -367,8 +346,11 @@ button#morepics {
 	width: 50%; 
 	max-width: 150px;
 	margin-left: 15px;
-	margin-bottom: 100px;
+	margin-bottom: 15px;
 	float: right;
+}
+.contact_info {
+	margin-bottom: 10px;
 }
 #tooltip {
 	padding: 5px;
@@ -385,12 +367,24 @@ button#morepics {
 .heading {
 	width: 100%;
 	height: auto;
-	margin-bottom: 25px;
+	padding-top: 9px;
+	padding-bottom: 7px;
+	margin-bottom: 10px;
+	color: #fff;
+	position: relative;
+	z-index: 10;
 	@include lr_padding;
+	@include shadow(0px, 2px, 4px, rgba(0,0,0,0.25));
+}
+.heading:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
 }
 div.heading_link {
 	position: relative;
-	top: 3px;
 }
 div.colorblock {
 	width: 4px; 
@@ -399,49 +393,40 @@ div.colorblock {
 	left: -4px; 
 	margin-top: -9px;
 }
-div#home_details_block { background-color: #FF7F00; }
+div#home_details_block { background-color: #FF7F00; margin: 0; }
 div#tour_block { background-color: #0059B2; }
-div#neighborhood_block { background-color: #D90000; }
+div#neighborhood_block { background-color: #D90000; margin: 0; }
 div#schools_block {	background-color: #00B200; }
 div#contact_block { background-color: #68B6EA;}
 
 
 /* Layout stuff */
 div.left_half {
-	clear: left;
-	float: left; 
-	width: 50%;
-	padding-left: 15px;
+	clear: both; 
+	width: 100%;
 }
 div.right_half {
-	float: right; 
-	width: 50%;
+	clear: both;
+	width: 100%;
 }
 div.col_container {
 	width: 100%; 
 	clear: both;
-	padding-right: 15px;
+	@include lr_padding;
 }
 div.col_container:after {
 	content: ".";
 	display: block;
 	height: 0;
-	clear:both;
+	clear: both;
 	visibility: hidden;
 }
 div.col {
-	//float: left; 
-	display: inline-block;
-	width: 33.3333333%;
-	padding-left: 15px;
+	width: 100%;
 	@include transition(width, $trans_time);
 
 	table {
 		width: 100%;
-	}
-
-	@media screen and (max-width: $med_res) {
-		width: 50%;
 	}
 }
 div.contact_left {
@@ -500,20 +485,14 @@ div#monthly_calc {
 /* Home Details table */
 td.attr {
 	color: #999999;
-	width: 120px;
+	width: 100px;
 }
 
 
 /* Tour table style */
 .floor_dims {
 	float:left;
-	margin-bottom: 25px;
-	width: 50%;
-
-	@media screen and (max-width: $med_res) {
-		width: 65%;
-		margin-bottom: 10px;
-	}
+	width: 56%;
 }
 td.key {
 	font-weight: 700;
@@ -521,27 +500,22 @@ td.key {
 	width: 9%;
 }
 td.room {
-	width: 66%;
+	padding-right: 10px;
+	padding-bottom: 3px;
+	line-height: $p_leading;
 }
 td.dims {
-	width: 25%;
 	text-align: center;
 }
 
 
 /* Floorplan */
 div.floorplan {
-	width: 45%; 
-	height: 140px; 
+	width: 39%; 
+	height: 130px; 
 	float: left; 
 	margin-left: 5%;
-	margin-bottom: 20px; 
 	position: relative;
-
-	@media screen and (max-width: $med_res) {
-		float: none;
-		clear: both;
-	}
 }
 span.floorplan_room_num {
 	display: table-cell; 
@@ -574,7 +548,7 @@ div.active, div.highlighted {
 /* Rooms */
 article {
 	clear: both;
-	padding-right: 15px;
+	margin-top: 10px;
 }
 article#other_photos {
 	padding: 0;
@@ -582,33 +556,93 @@ article#other_photos {
 h3 {
 	background: $color_light;
 	clear: both;
-	margin-bottom: 15px;
 	padding-top: 6px;
 	padding-left: 15px;
-	width: 180px;
+	width: 100%;
 	height: 25px;
 	color: #ffffff;
-	float: left;
+	margin-bottom: 0;
 }
-div.room_info {
-	clear: left;
-	float: left;
-	width: 33.3333333%;
-	padding-left: 15px;
-	@include transition(width, $trans_time);
 
-	@media screen and (max-width: $med_res) {
-		width: 50%;
-	}
+.flip_container {
+	width: 100%;
+	height: 203px;
+	position: relative;
+	z-index: 100;
+	//overflow-y: auto;
+	margin-bottom: 15px;
+	-webkit-perspective: 2000px;
+       -moz-perspective: 2000px;
+         -o-perspective: 2000px;
+            perspective: 2000px;
+}
+.card {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 5;
+	-webkit-transition: -webkit-transform .5s;
+         -moz-transition: -moz-transform .5s;
+           -o-transition: -o-transform .5s;
+              transition: transform .5s;
+    -webkit-transform-style: preserve-3d;
+         -moz-transform-style: preserve-3d;
+           -o-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+}
+.card figure {
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	-webkit-backface-visibility: hidden;
+         -moz-backface-visibility: hidden;
+           -o-backface-visibility: hidden;
+              backface-visibility: hidden;
+}
+.flipped {
+  	-webkit-transform: rotateY( 180deg );
+         -moz-transform: rotateY( 180deg );
+           -o-transform: rotateY( 180deg );
+              transform: rotateY( 180deg );
+}
+.front, .back {
+	backface-visibility: hidden;
+	transition: 0.6s;
+	-webkit-transform-style: preserve-3d;
+         -moz-transform-style: preserve-3d;
+           -o-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+
+	
+}
+.front {
+}
+.back {
+	-webkit-transform: rotateY( 180deg );
+         -moz-transform: rotateY( 180deg );
+           -o-transform: rotateY( 180deg );
+              transform: rotateY( 180deg );
+}
+.room_info {
+	width: 100%;
+	padding-left: 10px;
+	padding-top: 10px;
+}
+.tour_photo_container { 
+	width: 100%; 
+	margin-bottom: 15px;
 }
 ul.room_features {
 	float: left;
-	width: 55%;
+	width: 60%;
 	padding-right: 10px;
-	margin-bottom: 15px;
+	position: relative;
+	z-index: 6;
+	margin-top: 10px;
 
 	li {
-		padding-bottom: 5px;
+		padding-bottom: 3px;
 		line-height: $p_leading;
 	}
 
@@ -620,27 +654,19 @@ ul.room_features {
 		padding-left: 14px; 
 		color: $color_light;
 	}
-
-	@media screen and (max-width: $high_res) {
-		width: 50%;
-	}
-	@media screen and (max-width: 900px) {
-		width: 55%;
-	}
+	li ul li:last-child {
+			padding-bottom: 0;
+		}
 }
 div.room_floorplan {
 	float: left; 
-	margin-top: 25px; 
+	margin-top: 30px; 
 	position: relative;
-	width: 45%;
-
-	@media screen and (max-width: $high_res) {
-		width: 50%;
-	}
-	@media screen and (max-width: 900px) {
-		width: 45%;
-		margin-top: 20px;
-	}
+	width: 40%;
+	background: #fff;
+	height: 125px;
+	margin-bottom: 10px;
+	//z-index: 1;
 }
 h2.floor_label {
 	font-weight: bold;
@@ -653,7 +679,7 @@ h2.floor_label {
 		width: 18px;
 		vertical-align: bottom;
 	}
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: $med_res) {
 		img {
 			width: 15px;
 		}
@@ -666,7 +692,7 @@ h2.floor_label {
 	top: $top +px;
 	width: $width +px;
 
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: $med_res) {
 	 	top: small-floorplan($top) +px;
 	 	font-size: $small_ratio*100%;
 	}
@@ -678,51 +704,45 @@ h2.floor_label {
 	top: $top +px;
 	width: $width +px;
 
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: $med_res) {
 	 	top: small-floorplan($top) +px;
 	 	font-size: $small_ratio*100%;
 	}
 }
 
-div.tour_photo_container {
-	float: right; 
-	width: 66.6666666%; 
-	margin-top: -40px; 
-	margin-bottom: 15px;
-	padding-left: 15px;
+.portrait {
 	position: relative;
-	@include transition(width, $trans_time);
-
-	@media screen and (max-width: $med_res) {
-		width: 50%;
-	}
+	margin-bottom: 15px;
+	float: left;
+	width: 50%;
+	vertical-align: top;
 }
-div.other_photo_container {
+.landscape {
 	position: relative;
 	margin-bottom: 15px;
-
-	float: left; 
-	width: 33.3333333%;
-	padding-left: 15px;
-	@include transition(width, $trans_time);
-
-	@media screen and (max-width: $med_res) {
-		width: 50%;
-	}
+	width: 100%;
 }
 img.tour_photo {
 	width: 100%; 
 	vertical-align: top; 
-	position: relative; 
-	z-index: 3;
+	display: block;
 	@include shadow(0, 2px, 2px, rgba(0,0,0,0.15));
 }
 .caption {
 	width: 100%;
+	background: #eeeeee;
+	position: relative;
+	padding: 5px 10px 5px 10px;
+	z-index: 5;
+	@include shadow(0, 2px, 2px, rgba(0,0,0,0.15));
+}	
+.taptoggle {
+	width: 100%;
+	text-align: center;
 	background: #ffffff;
 	color: #000000;
 	position: absolute;
-	bottom: 0px;
+	top: 0px;
 	padding: 5px 10px 5px 10px;
 	z-index: 5;
 	@include opacity(70);
@@ -737,7 +757,7 @@ img.tour_photo {
 	width: $width +px;
 	height: $height +px;
 
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: $med_res) {
 	 	width: small-floorplan($width) +px;
 	 	height: small-floorplan($height) +px;
 	 	font-size: $small_ratio*100%;
@@ -753,7 +773,7 @@ img.tour_photo {
 	height: $height +px;
 	left: $left +2+px;
 
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: $med_res) {
 	 	width: small-floorplan($width) +px;
 	 	height: small-floorplan($height) +px;
 	 	left: small-floorplan($left) +2+px;
@@ -771,7 +791,7 @@ img.tour_photo {
 	left: $left +2+px;
 	top: $top +2+px;
 
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: $med_res) {
 	 	width: small-floorplan($width) +px;
 	 	height: small-floorplan($height) +px;
 	 	left: small-floorplan($left) +2+px;
@@ -790,7 +810,7 @@ img.tour_photo {
 	left: $left +2+px;
 	top: $top +2+px;
 
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: $med_res) {
 	 	width: small-floorplan($width) +px;
 	 	height: small-floorplan($height) +px;
 	 	left: small-floorplan($left) +2+px;
@@ -809,7 +829,7 @@ img.tour_photo {
 	left: $left +2+px;
 	top: $top +2+px;
 
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: $med_res) {
 	 	width: small-floorplan($width) +px;
 	 	height: small-floorplan($height) +px;
 	 	left: small-floorplan($left) +2+px;
@@ -828,7 +848,7 @@ img.tour_photo {
 	left: $left +2+px;
 	top: $top +2+px;
 
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: $med_res) {
 	 	width: small-floorplan($width) +px;
 	 	height: small-floorplan($height) +px;
 	 	left: small-floorplan($left) +2+px;
@@ -839,6 +859,12 @@ img.tour_photo {
 
 
 /* Neighborhood table style */
+#transit_walk_score {
+	@include lr_padding;
+	padding-top: 10px;
+	margin-bottom: 10px;
+}
+
 td.venue {
 	padding-right: 10px;
 	padding-top: 0px;
@@ -874,6 +900,7 @@ td.distance {
 	min-width: 40px;
 }
 div.rating {
+	float: right;
 	width: 84px;
 	height: 18px;
 	background: url(yelp_icons.png) no-repeat;
@@ -912,23 +939,17 @@ td.distance {
 /* Image containers */
 div.full_container {
 	width: 100%; 
-	height: 400px;
+	height: 200px;
 	background: #eee;
-
-	@media screen and (max-width: $med_res) {
-		height: 300px; 
-	}
 }
-div#street_container {
-	margin-bottom: 20px;
-}
-
 
 
 /* Map Stuff */
 div#map {
-	padding: 10px 0 20px 0;
+	padding-bottom: 10px;
 	clear: both;
+	position: relative; 
+	z-index: 5;
 }
 div#directions_bar {
 	width: 100%;
@@ -944,8 +965,130 @@ div#directions_bar {
 	@include opacity(80);
 }
 div#schoolmap_container {
-	@extend div.full_container;
+	width: 100%; 
+	height: 200px; 
 	clear: both; 
 	margin-top: 10px;
-	margin-bottom: 30px;
+	margin-bottom: 15px;
+}
+.offscreen {
+	position: absolute;
+    left: -10000px;
+}
+
+
+/* Swipe style */
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float:left;
+  width:100%;
+  position: relative;
+}
+
+
+/* Swipe UI elements */
+.swipebar {
+	width: 100%; 
+	height: 35px; 
+	background: #fff; 
+	border-bottom: 1px solid #e6e6e6; 
+	line-height: 35px; 
+	padding: 0 10px;
+	color: #ccc; 
+	font-weight: bold;
+	@include linear-gradient(#fff, 0%, #eee);
+
+	img {
+		vertical-align: middle;
+	}
+}
+.swipe_prev_section {
+	float: left;
+	color: #999;
+	height: 35px;
+	position: relative;
+	z-index: 50;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 1);
+	@extend .interactive;
+}
+.swipe_next_section {
+	float: right;
+	color: #999;
+	height: 35px;
+	position: relative;
+	z-index: 50;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 1);
+	@extend .interactive;
+}
+.swipe_arrows {
+	position: absolute;
+	margin-left: -10px;
+	z-index: 1;
+	width: 100%; 
+	text-align: center;
+}
+#page_indicator {
+	width: 100%; 
+	height: 30px; 
+	background: #fff; 
+	border-top: 1px solid #e6e6e6; 
+	border-bottom: 1px solid #e6e6e6; 
+	line-height: 30px; 
+	padding: 0 10px; 
+	z-index: 100;
+	margin-bottom: 10px;
+}
+ul#dots {
+	text-align:center;
+	list-style:none;
+	margin:0;
+	padding:0;
+
+	li {
+		display:inline-block;
+		width:8px;
+		height:8px;
+		border-radius:8px;
+		background:#fff;
+		//box-shadow:inset 0 1px 3px black,0 0 1px 1px #202020;
+		margin:0 2px;
+		cursor:pointer;
+		border: 1px solid #ccc;
+	}
+
+	li.selected {
+		@include linear-gradient(#1293dc, 0%, #0f6297);
+	}
+}
+
+//Mobile menu
+div#mobilemenu {
+	position: fixed; 
+	left: 0; 
+	top: 40px; 
+	z-index: 100;
+	display: none;
+
+	ul {
+		width: 160px; 
+		@include shadow(0, 2px, 4px, rgba(0,0,0,0.25));
+		color: #666;
+	}
+
+	ul li {
+		line-height: 30px;
+		@include linear-gradient(#fff, 0%, #eee);
+		font-size: 115%;
+		font-weight: bold;
+		padding: 5px 5px 5px 10px;
+		border-bottom: 1px solid #e6e6e6;
+	}
 }
